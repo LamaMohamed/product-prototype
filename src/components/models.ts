@@ -1,8 +1,10 @@
-export interface Todo {
-  id: number;
-  content: string;
-}
 
-export interface Meta {
-  totalCount: number;
+export interface Product {
+  id: number;
+  imageUrl:string;
+  name: string;
+  status: string;
+  stock: number;
+  price: string;
+  type: string;
 }
