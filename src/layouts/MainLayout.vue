@@ -3,6 +3,7 @@
     <q-header>
       <q-toolbar class="bg-white text-dark shadow-2">
         <q-btn
+         class="toggle"
           flat
           dense
           round
@@ -10,7 +11,6 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
         <q-toolbar-title class="text-bold"> All Products </q-toolbar-title>
 
         <q-avatar>
@@ -23,7 +23,7 @@
       show-if-above
       :width="250"
       bordered
-      class="bg-grey-10 text-white"
+      class="bg-dark text-white"
     >
       <q-item class="q-my-md">
         <q-avatar class="q-mx-md"> <img :src="userData" /> </q-avatar>
@@ -35,39 +35,34 @@
         </q-item-section>
       </q-item>
 
-      <q-list>
-        <q-expansion-item clickable icon="mail" label="Inbox" default-opened>
-          <q-expansion-item
-            :header-inset-level="1"
-            label="Receipts"
-            default-opened
-          >
-          </q-expansion-item>
-          <q-expansion-item
-            :header-inset-level="1"
-            label="Receipts"
-            default-opened
-          >
-          </q-expansion-item>
-        </q-expansion-item>
+      <q-list class="q-my-xl">
 
         <SideNav
           v-for="link in routeLinks"
           :key="link.title"
           v-bind="link"
-          class="text-white q-my-xs"
         />
-      </q-list>
-      <q-list class="q-ma-xl">
+        <q-list class="fixed-bottom-left q-ma-lg">
         <q-icon size="20px" name="settings"></q-icon
       ></q-list>
+      </q-list>
+      
     </q-drawer>
 
-    <q-page-container class="bg-grey-3">
+    <q-page-container class="bg-grey-2">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
+
+<style>
+@media screen and (min-width: 1024px) {
+  .toggle {
+    display: none;
+  }
+  
+}
+</style>
 
 <script lang="ts">
 import SideNav from '../components/sideNav.vue';
@@ -78,41 +73,61 @@ const linksList = [
     title: 'Home',
     icon: 'home',
     link: '/',
+    expand:false
   },
   {
     title: 'Orders',
     icon: 'assignment',
     link: '/',
+    expand:false
   },
   {
     title: 'Products',
     icon: 'view_in_ar',
-    link: '/product-list',
+    expand: true,
+    nested: [{
+      title:"All Products",
+      link: '/product-list'
+    },
+    {
+      title:"Inventory",
+      link: '/',
+    },
+    {
+      title:"Collections",
+      link: '/',
+    },
+    ]
   },
   {
     title: 'Customers',
     icon: 'groups',
     link: '/',
+    expand:false
   },
   {
     title: 'Analytics',
     icon: 'analytics',
     link: '/',
+    expand:false
   },
   {
     title: 'Discounts',
     icon: 'price_change',
     link: '/',
+    expand:false
   },
   {
     title: 'Website Builder',
     icon: 'desktop_windows',
     link: '/',
+    expand:false
   },
   {
     title: 'Markting',
     icon: 'campaign',
     link: '/',
+    expand:false
   },
 ];
 

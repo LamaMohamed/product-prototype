@@ -1,9 +1,17 @@
 <template>
-  <q-item class="q-ma-xs" clickable tag="routrt-link" :to="link">
+ <q-expansion-item  v-if="expand" clickable :icon="icon" :label="title">
+          <q-item class="text-white" v-for="item in nested" :header-inset-level="1" tag="routrt-link" :to="item.link">
+          <q-item-section class="text-center"
+          >
+          <q-item-label>{{ item.title }}</q-item-label>
+          </q-item-section>
+          </q-item>
+  </q-expansion-item>
+  
+  <q-item v-if="!expand" class="text-white" clickable tag="routrt-link" :to="link">
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
-
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
     </q-item-section>
@@ -11,10 +19,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent,ref } from 'vue';
 
 export default defineComponent({
   name: 'SideNav',
+  
   props: {
     title: {
       type: String,
@@ -30,6 +39,12 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    expand:{
+      type: Boolean,
+    },
+    nested:{
+      type:Array
+    }
   },
 });
 </script>

@@ -7,8 +7,6 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: 'product-list', component: () => import('pages/ProductList.vue') }],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('layouts/MainLayout.vue'),
