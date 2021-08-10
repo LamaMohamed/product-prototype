@@ -1,14 +1,27 @@
 <template>
- <q-expansion-item  v-if="expand" clickable :icon="icon" :label="title">
-          <q-item class="text-white" v-for="item in nested" :header-inset-level="1" tag="routrt-link" :to="item.link">
-          <q-item-section class="text-center"
-          >
-          <q-item-label>{{ item.title }}</q-item-label>
-          </q-item-section>
-          </q-item>
+  <q-expansion-item v-if="expand" clickable :icon="icon" :label="title">
+    <q-item
+      class="text-white"
+      v-for="item in nested"
+      :key="item.title"
+      :header-inset-level="1"
+      tag="routrt-link"
+      :to="item.link"
+    >
+      <q-item-section class="text-center">
+        <q-item-label>{{ item.title }}</q-item-label>
+      </q-item-section>
+    </q-item>
   </q-expansion-item>
-  
-  <q-item v-if="!expand" class="text-white" clickable tag="routrt-link" :to="link">
+
+  <q-item
+    v-if="!expand"
+    class="text-white"
+    clickable
+    @click="getTitle(title)"
+    tag="routrt-link"
+    :to="link"
+  >
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
@@ -19,11 +32,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,ref } from 'vue';
+import { defineComponent, defineEmits } from 'vue';
 
 export default defineComponent({
   name: 'SideNav',
-  
+
   props: {
     title: {
       type: String,
@@ -39,12 +52,26 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    expand:{
+    expand: {
       type: Boolean,
     },
-    nested:{
-      type:Array
+    nested: {
+      type: Array,
+    },
+    head: {
+      type: String,
+    },
+  },
+
+  setup() {
+    const head: any = 'home';
+    function getTitle(tit) {
+      return console.log((this.head = tit));
     }
+    return {
+      getTitle,
+      head,
+    };
   },
 });
 </script>

@@ -3,7 +3,7 @@
     <q-header>
       <q-toolbar class="bg-white text-dark shadow-2">
         <q-btn
-         class="toggle"
+          class="toggle"
           flat
           dense
           round
@@ -11,7 +11,9 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-        <q-toolbar-title class="text-bold"> All Products </q-toolbar-title>
+        <q-toolbar-title class="text-bold">
+          <span class="title">All Products {{ head }}</span>
+        </q-toolbar-title>
 
         <q-avatar>
           <img :src="userData" />
@@ -36,17 +38,11 @@
       </q-item>
 
       <q-list class="q-my-xl">
-
-        <SideNav
-          v-for="link in routeLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <SideNav v-for="link in routeLinks" :key="link.title" v-bind="link" />
         <q-list class="fixed-bottom-left q-ma-lg">
-        <q-icon size="20px" name="settings"></q-icon
-      ></q-list>
+          <q-icon size="20px" name="settings"></q-icon
+        ></q-list>
       </q-list>
-      
     </q-drawer>
 
     <q-page-container class="bg-grey-2">
@@ -60,7 +56,12 @@
   .toggle {
     display: none;
   }
-  
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+    display: none;
+  }
 }
 </style>
 
@@ -73,68 +74,69 @@ const linksList = [
     title: 'Home',
     icon: 'home',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Orders',
     icon: 'assignment',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Products',
     icon: 'view_in_ar',
     expand: true,
-    nested: [{
-      title:"All Products",
-      link: '/product-list'
-    },
-    {
-      title:"Inventory",
-      link: '/',
-    },
-    {
-      title:"Collections",
-      link: '/',
-    },
-    ]
+    nested: [
+      {
+        title: 'All Products',
+        link: '/product-list',
+      },
+      {
+        title: 'Inventory',
+        link: '/',
+      },
+      {
+        title: 'Collections',
+        link: '/',
+      },
+    ],
   },
   {
     title: 'Customers',
     icon: 'groups',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Analytics',
     icon: 'analytics',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Discounts',
     icon: 'price_change',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Website Builder',
     icon: 'desktop_windows',
     link: '/',
-    expand:false
+    expand: false,
   },
   {
     title: 'Markting',
     icon: 'campaign',
     link: '/',
-    expand:false
+    expand: false,
   },
 ];
 
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: 'Header',
 
   components: {
     SideNav,
