@@ -1,5 +1,4 @@
-<template>
-  <!--   <div class="row">
+<!--   <div class="row">
     <div class="col"></div>
     <div class="col"><q-checkbox size="sm" /></div>
     <div class="col">
@@ -31,4 +30,3 @@
       <span> {{ product.type }}</span>
     </div>
   </div> -->
-</template>
