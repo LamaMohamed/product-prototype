@@ -14,7 +14,7 @@
               </template>
             </q-input>
           </div>
-          <div class="col q-mx-sm mbtn" v-if="window?.width < 1023">
+          <div class="col q-mx-sm mbtn" v-if="window?.width < 800">
             <q-btn
               outline
               no-caps
@@ -50,7 +50,7 @@
         <thead class="text-left text-grey-8 displayCheck">
           <tr>
             <th class="text-right displayCheck">
-              <q-checkbox size="sm" />
+              <q-checkbox size="sm" v-model="val" />
             </th>
             <th style="width: 150px"></th>
             <th>Product</th>
@@ -62,9 +62,9 @@
         </thead>
         <tbody class="text-left text-grey-10 text-weight-medium">
           <tr v-for="product in products" :key="product.id">
-            <hr v-if="window?.width < 500" />
+            <hr v-if="window?.width < 1024" />
             <td class="text-right displayCheck">
-              <q-checkbox size="sm" />
+              <q-checkbox size="sm" v-model="val" />
             </td>
             <td>
               <q-img
@@ -74,8 +74,6 @@
             </td>
             <td class="name">
               {{ product.name }}
-
-              <span> {{ product.type }}</span>
             </td>
             <td class="status">
               <q-badge
@@ -101,7 +99,7 @@
             <td>
               <span>{{ product.price }} EGP</span>
             </td>
-            <td class="displayCheck">
+            <td class="type displayCheck">
               <span>{{ product.type }}</span>
             </td>
           </tr>
@@ -125,15 +123,17 @@
     height: 80px;
   }
 }
+@media screen and (max-width: 800px) {
+  .displayCheck {
+    display: none;
+  }
+}
 @media screen and (max-width: 500px) {
   .col {
     width: 100% !important;
   }
   .col-4 {
     width: 100% !important;
-  }
-  .displayCheck {
-    display: none;
   }
   .mbtn {
     margin-top: 15px;
@@ -153,17 +153,24 @@
   }
   .status {
     float: right !important;
-    margin: 5px 11px;
+    margin: 5px 10px;
   }
 
   .name {
-    margin-bottom: 100px !important;
+    position: relative;
+    bottom: 12px;
+    margin-left: 16px;
   }
+  /* .type {
+    position: relative;
+    bottom: 45px;
+    left: 20px;
+  } */
 
   .q-table th,
   .q-table td,
   .q-table tr {
-    padding: 7px 5px !important;
+    padding: 7px 3px !important;
   }
   tbody,
   td {
@@ -173,17 +180,23 @@
   .q-img {
     width: 55px;
     height: 55px;
-    margin-left: 12px;
+    margin-left: 20px;
   }
   .stock span {
-    margin-left: 80px;
+    margin-left: 100px;
     padding: 0px;
   }
 
   hr {
     margin: 25px 0;
-    background-color: #ebebeb !important;
+    background-color: #ffffff !important;
     width: 100%;
+  }
+}
+@media screen and (min-width: 400px), (min-width: 450px) {
+  .stock span {
+    margin-left: 110px;
+    padding: 0px;
   }
 }
 @media screen and (max-width: 320px) {
@@ -231,18 +244,18 @@ export default defineComponent({
     window: {
       type: Object,
     },
-    computed: {},
-    setup() {
-      /* function sortedArray() {
+  },
+  computed: {},
+  setup() {
+    /* function sortedArray() {
         return props.products.sort(function (a, b) {
           return a.name > b.name;
         });
       } */
-      return {
-        filter: ref(''),
-        selected: ref(true),
-      };
-    },
+    return {
+      filter: ref(''),
+      val: ref(false),
+    };
   },
 });
 </script>
