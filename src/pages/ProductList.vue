@@ -1,5 +1,5 @@
 <template>
-  <q-page v-scroll="onScroll" class="q-py-xl row justify-center items-center">
+  <q-page class="q-py-md row justify-center items-center">
     <div v-if="loading">
       <q-spinner-grid color="primary" size="5em" />
     </div>
@@ -34,7 +34,6 @@
           <q-btn v-if="window.width > 1024" flat no-caps label="Import" />
           <q-btn v-if="window.width > 1024" no-caps flat label="Export" />
           <q-btn
-            @click="fetchData"
             :size="window.width > 1024 ? '15px' : '14px'"
             class="bg-green-6 text-white"
             no-caps
@@ -76,7 +75,7 @@
     width: 100% !important;
   }
   .margin {
-    margin: 17px;
+    margin: 17px !important;
   }
 }
 </style>
@@ -96,11 +95,17 @@ export default defineComponent({
         width: 0,
         height: 0,
       },
+      loading: false,
+      products: [],
+      imagesUrl: [{ imageUrl: 'https://i.stack.imgur.com/y9DpT.jpg' }],
     };
   },
   created() {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
+    this.loading = true;
+    this.retrieveproducts();
   },
 
   methods: {
@@ -108,188 +113,20 @@ export default defineComponent({
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
     },
+    retrieveproducts() {
+      ProductService.getAll()
+        .then((response) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          this.products = response.data;
+          this.loading = false;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 
-  setup() {
-    const imagesUrl = [{ imageUrl: 'https://i.stack.imgur.com/y9DpT.jpg' }],
-      products = [
-        {
-          id: 1,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 2,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Hide',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 3,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 4,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 5,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 6,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 7,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 8,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 9,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 10,
-          name: 'Moconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 11,
-          name: 'Coconut - Dry, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 12,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 13,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 14,
-          name: 'Doconut - Pull, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 15,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 16,
-          name: 'Noconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 17,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 18,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 19,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 20,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 21,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Draft',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-        {
-          id: 22,
-          name: 'Coconut - Creamed, Pure',
-          status: 'Active',
-          stock: 66,
-          price: 55,
-          type: 't-shirt',
-        },
-      ];
+  /*  setup() {
     let product = [],
       pageSize = 10;
 
@@ -303,63 +140,9 @@ export default defineComponent({
     }
 
     return {
-      imagesUrl,
-      products,
       onScroll,
       fetchData,
     };
-  },
-  /* } */
-
-  /* data() {
-    return {  */
-  /* loading: false,
-      products: [], */
-  /*     imagesUrl: [{imageUrl:'https://i.stack.imgur.com/y9DpT.jpg'}],
-      products: [
-        {id:1,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:2,name:"Coconut - Creamed, Pure",status:"Hide",stock:66,price:55,type:"t-shirt"},
-        {id:3,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:4,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:5,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:6,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:7,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:8,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:9,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:10,name:"Moconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:11,name:"Coconut - Dry, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:12,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:13,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:14,name:"Doconut - Pull, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:15,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:16,name:"Noconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:17,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:18,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:19,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-        {id:20,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:21,name:"Coconut - Creamed, Pure",status:"Draft",stock:66,price:55,type:"t-shirt"},
-        {id:22,name:"Coconut - Creamed, Pure",status:"Active",stock:66,price:55,type:"t-shirt"},
-      ],
-    };
-  },
-  created() { */
-  /*   this.loading = true;
-    this.retrieveproducts(); */
-  /*  }, */
-
-  /* methods: { */
-  /*  retrieveproducts() {
-      ProductService.getAll()
-        .then((response) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          this.products = response.data;
-          this.loading = false;
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }, */
-  /*  }, */
+  }, */
 });
 </script>

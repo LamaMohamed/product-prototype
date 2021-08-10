@@ -18,7 +18,6 @@
     v-if="!expand"
     class="text-white"
     clickable
-    @click="getTitle(title)"
     tag="routrt-link"
     :to="link"
   >
@@ -32,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineEmits } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'SideNav',
@@ -64,14 +63,14 @@ export default defineComponent({
   },
 
   setup() {
-    const head: any = 'home';
+    /* const head: any = 'home';
     function getTitle(tit) {
       return console.log((this.head = tit));
     }
     return {
       getTitle,
       head,
-    };
+    }; */
   },
 });
 </script>

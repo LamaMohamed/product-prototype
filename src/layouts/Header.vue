@@ -12,7 +12,7 @@
           @click="toggleLeftDrawer"
         />
         <q-toolbar-title class="text-bold">
-          <span class="title">All Products {{ head }}</span>
+          <span class="title">All Products</span>
         </q-toolbar-title>
 
         <q-avatar>
@@ -75,12 +75,14 @@ const linksList = [
     icon: 'home',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Orders',
     icon: 'assignment',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Products',
@@ -106,30 +108,35 @@ const linksList = [
     icon: 'groups',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Analytics',
     icon: 'analytics',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Discounts',
     icon: 'price_change',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Website Builder',
     icon: 'desktop_windows',
     link: '/',
     expand: false,
+    nested: [{}],
   },
   {
     title: 'Markting',
     icon: 'campaign',
     link: '/',
     expand: false,
+    nested: [{}],
   },
 ];
 
